@@ -13,7 +13,7 @@ from dask.distributed import Client
 def question_c(big_dataset, small_dataset, label="Sequential"):
 
     print(f"\n{'='*60}")
-    print(f"  QUESTION C  [{label}]")
+    print(f"  QUESTION C  [{label}]")                                                                                                             
     print(f"{'='*60}")
 
     # ── Step 1: Get national rows from big dataset 
@@ -88,7 +88,7 @@ def question_c(big_dataset, small_dataset, label="Sequential"):
     ax.legend()
 
     metrics_text = f"R² = {r2:.4f}\nRMSE = {rmse:,.0f}"
-    ax.text(0.05, 0.92, metrics_text, transform=ax.transAxes, fontsize=10,
+    ax.text(0.05, 0.88, metrics_text, transform=ax.transAxes, fontsize=10,
             verticalalignment="top",
             bbox=dict(boxstyle="round", facecolor="wheat", alpha=0.5))
 
