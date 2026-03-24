@@ -18,6 +18,7 @@ def question_a(big_dataset, small_dataset, label="Sequential"):
         columns=["State FIPS", "State Postal Code", "County FIPS", "County Name"],
         errors="ignore"
     )
+    national = national.dropna()
 
     # ── Step 2: Weekly average – population staying at home 
     weekly_home = (
@@ -147,3 +148,5 @@ if __name__ == "__main__":
     print(f"  Sequential          : {seq_time:.2f}s")
     print(f"  Parallel 10 workers : {par10_time:.2f}s  (speedup: {seq_time/par10_time:.2f}x)")
     print(f"  Parallel 20 workers : {par20_time:.2f}s  (speedup: {seq_time/par20_time:.2f}x)")
+
+    

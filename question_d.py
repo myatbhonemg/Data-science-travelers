@@ -27,7 +27,17 @@ def question_d(big_dataset, small_dataset, label="Sequential"):
         errors="ignore"
     )
 
-    # ── Step 2: Distance-trip columns 
+    # ── Step 2: Distance-trip columns
+    def classify_distance(band):
+      short     = ['<1', '1-3', '3-5']
+      medium    = ['5-10', '10-25']
+      long_     = ['25-50', '50-100']
+      very_long = ['100-250', '250-500', '>=500']
+      if band in short:     return 'Short (<5 miles)'
+      if band in medium:    return 'Medium (5-25 miles)'
+      if band in long_:     return 'Long (25-100 miles)'
+      return 'Very Long (>100 miles)'
+ 
     distance_columns = [
         "Number of Trips <1", "Number of Trips 1-3", "Number of Trips 3-5",
         "Number of Trips 5-10", "Number of Trips 10-25", "Number of Trips 25-50",
@@ -157,3 +167,16 @@ if __name__ == "__main__":
     print(f"  Sequential          : {seq_time:.2f}s")
     print(f"  Parallel 10 workers : {par10_time:.2f}s  (speedup: {seq_time/par10_time:.2f}x)")
     print(f"  Parallel 20 workers : {par20_time:.2f}s  (speedup: {seq_time/par20_time:.2f}x)")
+
+    from dask.distributed import Client
+    import time
+
+    # Parallel 10 workers configuration
+    client = Client(n_workers=2, threads_per_worker=1, memory_limit='512MB')
+    t_start = time.time()
+    
+    elapsed = time.time() - t_start
+    print(f'Parallel (10 workers) time: {elapsed:.2f}s')
+    client.close()
+
+
